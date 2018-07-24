@@ -4,12 +4,12 @@
 <head>
 	<meta charset="utf-8">
 	<title>Arcadia Site</title>
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/materialize.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/style.css' %}">
 	<!-- Change to Vue JS Production CDN link -->
 	<script src="{% static 'arcadia/vue.js' %}"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+	<script src="{% static 'arcadia/jquery.js' %}"></script>
 </head>
 <body>
 	<div id="main-app">
@@ -25,12 +25,13 @@
 								<ul id="nav-mobile" class="tabs tabs-fixed-width">
 									<li @click.prevent="siteStateChange('reg')" :class="getTabClass('reg')"><a href="">Register</a></li>
 									<li @click.prevent="siteStateChange('teams')" :class="getTabClass('teams')"><a href="">Teams</a></li>
+									<li @click.prevent="siteStateChange('plrs')" :class="getTabClass('plrs')"><a href="">Players</a></li>
 									<li @click.prevent="siteStateChange('abt')" :class="getTabClass('abt')"><a href="">About</a></li>
 								</ul>
 						</div>
 					</div>
 				</div>
-			</nav>
+			</nav>	
 
 		</header>
 
@@ -48,7 +49,7 @@
 									<h2 class="white-text">Arcadia Brings You A Gaming Competition...</h2>
 									<p class="white-text">Don't miss this chance, lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. </p>
 								</div>
-								<button class="modal-trigger z-depth-1 btn l green waves-effect waves-light" href="#regUserModal">Register Now!</button> <button class="modal-trigger z-depth-1 btn l green waves-effect waves-light" href="#regTeamModal">Register A Team!</button>
+								<button class="modal-trigger z-depth-1 btn l green waves-effect waves-light" href="#regUserModal">Register Now!</button> <button class="modal-trigger z-depth-1 btn l green waves-effect waves-light" href="#regTeamModal">Register A Team!</button> 
 								<!-- Register User Modal -->
 								<div id="regUserModal" class="modal">
 									<div class="modal-content">
@@ -56,18 +57,6 @@
 										<p>Please enter your details below. You will be auctioned on 18-08-2018.</p>
 										<blockquote>The registration fee is Rs. 20.</blockquote>
 										<p><i>For the payment, contact someone</i></p>
-<<<<<<< HEAD
-										<hr/>
-										<form  method="post" enctype="multipart/form-data">
-												{%csrf_token%}
-
-												{{obj}}
-
-										<input type="submit" value="submit" v-show="!regUserWaiting" @click.prevent="regUserWaiting = ! regUserWaiting" class="waves-effect waves-light btn green">
-
-                     </form>
-										 	<button class="btn red waves-effect waves-light modal-close">Close</button>
-||||||| merged common ancestors
 										<hr />
 										
 											<form>
@@ -75,36 +64,16 @@
 												<hr>
 												<div class="input-field">
 													<input type="text" name="name" ref="userName" placeholder="Your Name" class="input" @blur="verifyUserName()" id="userName">
-													<label for="regName">{{ regNameError }}</label>
+													<label for="regName">{% verbatim %}{{ regNameError }}{% endverbatim %}</label>
 												</div>
 												<div class="input-field">
 													<input type="text" id="regGamerTag" ref="regGamerTagRef" @blur="verifyGamerTag()" placeholder="Your Gamer Tag" class="input">
-													<label for="regGamerTag" >{{ regGamerTagError }}</label>
-												</div>
-
-											</form>
-										<button v-show="!regUserWaiting" @click.prevent="regUserWaiting = ! regUserWaiting" class="waves-effect waves-light btn green">Submit</button> 
-										<button class="btn red waves-effect waves-light modal-close">Close</button>
-
-=======
-										<hr />
-										
-											<form>
-												<h4>Register</h4>
-												<hr>
-												<div class="input-field">
-													<input type="text" name="name" ref="userName" placeholder="Your Name" class="input" @blur="verifyUserName()" id="userName">
-													<label for="regName">{% verbatim %} {{ regNameError }} {% endverbatim %}</label>
-												</div>
-												<div class="input-field">
-													<input type="text" id="regGamerTag" ref="regGamerTagRef" @blur="verifyGamerTag()" placeholder="Your Gamer Tag" class="input">
-													<label for="regGamerTag" >{% verbatim %} {{ regGamerTagError }} {% endverbatim %}</label>
+													<label for="regGamerTag" >{% verbatim %}{{ regGamerTagError }}{% endverbatim %}</label>
 												</div>
 
 											</form>
 										<button v-show="!regUserWaiting" @click.prevent="regFormSubmit" class="waves-effect waves-light btn green">Submit</button> 
 										
->>>>>>> 4558f72227a6d2fd0318b315e1f7df77740300ab
 										<!-- Waiting Icon -->
 										<div class="preloader-wrapper small active" v-show="regUserWaiting">
 										    <div class="spinner-layer spinner-green-only">
@@ -127,10 +96,40 @@
 								<div id="regTeamModal" class="modal">
 									<div class="modal-content">
 										<h4>Register Your Team Below</h4>
-										<p>To participate in this League, you need a 5-member team. Provide the Names of the members, and their Gamer Tags.</p>
+										<p>To participate in this League, Enter your name and the name of your team.</p>
+										<blockquote>Team registration fee is Rs. 150</blockquote>
+										<i>Contact someone for payment.</i>
 										<hr />
 
-										<button class="modal-close waves-effect waves-light btn green">Submit</button>
+										<form>
+											<h4>Register Your Team Below</h4>
+											<hr>
+											<div class="input-field">
+												<input type="text" ref="teamName" placeholder="Team Name" class="input" id="teamName">
+												<label for="teamName">{% verbatim %}{{ regTeamNameError }}{% endverbatim %}</label>
+											</div>
+											<div class="input-field">
+												<input type="text" id="teamLeaderName" ref="teamLeaderName" placeholder="Team Leader Name" class="input">
+												<label for="regGamerTag" >{% verbatim %}{{ regTeamLeaderNameError }}{% endverbatim %}</label>
+											</div>
+
+										</form>
+										<button v-show="!regTeamWaiting" @click.prevent="regTeamFormSubmit" class="waves-effect waves-light btn green">Register</button> 
+										
+										<!-- Waiting Icon -->
+										<div class="preloader-wrapper small active" v-show="regTeamWaiting">
+										    <div class="spinner-layer spinner-green-only">
+										      <div class="circle-clipper left">
+										        <div class="circle"></div>
+										      </div><div class="gap-patch">
+										        <div class="circle"></div>
+										      </div><div class="circle-clipper right">
+										        <div class="circle"></div>
+										      </div>
+										    </div>
+										  </div>
+
+										  <button class="btn red waves-effect waves-light modal-close">Close</button>
 									</div>
 								</div>
 							</div>
@@ -141,14 +140,18 @@
 
 			<div v-show="siteState == 'teams'">
 				<div class="container">
-					<h2 class='head-h2 white-text'>Registered Teams</h2>
+					<div class="card red darken-4">
+						<div class="card-content">
+							<h2 class='head-h2 white-text'>Registered Teams</h2>
+						</div>
+					</div>
 					<div class="row" >
 						<div class="col s12 m6" v-for="team in teams">
 					        <div class="card red darken-4">
 					         <div class="card-content white-text">
-					            <span class="card-title">{% verbatim %} {{ team.name }} {% endverbatim %}</span>
-					            <p class="leader-dec">Team Leader : {% verbatim %} {{ team.leader }} {% endverbatim %}</p>
-					            <table class="centered responsive-table highlight">
+					            <span class="card-title">{% verbatim %}{{ team.team_name }}{% endverbatim %}</span>
+					            <p class="leader-dec">Team Leader : {% verbatim %}{{ team.leader }}{% endverbatim %}</p>
+					            <table class="centered highlight">
 					            	<thead>
 					            		<tr>
 					            			<th>Name</th>
@@ -157,9 +160,25 @@
 					            	</thead>
 
 					            	<tbody>
-					            		<tr v-for="member in team.members">
-					            			<td>{% verbatim %} {{ member.name }} {% endverbatim %}</td>
-					            			<td>{% verbatim %} {{ member.tag }} {% endverbatim %}</td>
+					            		<tr>
+					            			<td>{% verbatim %}{{ team.member }}{% endverbatim %}</td>
+					            			<td>{% verbatim %}{{ team.membertag }}{% endverbatim %}</td>
+													</tr>
+													<tr>
+					            			<td>{% verbatim %}{{ team.member2 }}{% endverbatim %}</td>
+					            			<td>{% verbatim %}{{ team.member2tag }}{% endverbatim %}</td>
+													</tr>
+													<tr>
+					            			<td>{% verbatim %}{{ team.member3 }}{% endverbatim %}</td>
+					            			<td>{% verbatim %}{{ team.member3tag }}{% endverbatim %}</td>
+													</tr>
+													<tr>
+					            			<td>{% verbatim %}{{ team.member4 }}{% endverbatim %}</td>
+					            			<td>{% verbatim %}{{ team.member4tag }}{% endverbatim %}</td>
+													</tr>
+													<tr>
+					            			<td>{% verbatim %}{{ team.member5 }}{% endverbatim %}</td>
+					            			<td>{% verbatim %}{{ team.member5tag }}{% endverbatim %}</td>
 					            		</tr>
 					            	</tbody>
 					            </table>
@@ -170,10 +189,44 @@
 				</div>
 			</div>
 
+			<!-- Players State -->
+			<div v-show="siteState == 'plrs'">
+				<div class="container">
+					<div class="card red darken-4">
+						<div class="card-content white-text">
+							<h3 class="head-h2 white-text">Registered Players</h3>
+							<hr>
+							<table class="centered highlight">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Gamer Tag</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="player in players">
+										<td>{% verbatim %}{{ player.name }}{% endverbatim %}</td>
+										<td>{% verbatim %}{{ player.tag }}{% endverbatim %}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<!-- About state -->
 			<div v-show="siteState == 'abt'">
 				<div class="container">
-					<h1>About</h1>
+					<div class="card red darken-4">
+						<div class="card-content">
+							<h2 class="white-text">About</h2>
+							<hr>
+							<p class="white-text">Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. </p><br>
+
+							<p class="white-text">Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. Arcadia is the gaming club of iiit vadodara. </p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</main>
@@ -184,8 +237,8 @@
 
 
 		<!-- Footer of the page -->
-
-		<footer class="page-footer red darken-3">
+		
+		<footer class="page-footer red darken-4">
 		  <div class="container">
 			<div class="row">
 			  <div class="col l6 s12">

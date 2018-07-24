@@ -8,7 +8,12 @@ var Main = new Vue({
 		regUserWaiting: false,
 		regGamerTagError: "",
 		regNameError: "",
-		regGamerTagAlreadyUsed: 2
+		regGamerTagAlreadyUsed: 2,
+		regTeamWaiting: false,
+		gotPlayers: 0,
+		players: [],
+		regTeamNameError: "",
+		regTeamLeaderNameError: ""
 	}
 	,
 	methods: {
@@ -17,6 +22,10 @@ var Main = new Vue({
 			if ( val == 'teams' && this.gotTeams == 0 ) {
 				getTeams();
 				this.gotTeams = 1;
+			}
+			if ( val == 'plrs' && this.gotPlayers == 0 ) {
+				getPlayers();
+				this.gotPlayers = 1;
 			}
 			this.siteState = val;
 		},
@@ -38,7 +47,6 @@ var Main = new Vue({
 				this.$refs.userName.attributes.class.value = "valid";
 				this.regNameError = "Nice!"
 			}
-			console.log(this.regNameError);
 		},
 
 		verifyGamerTag: function() {
@@ -50,7 +58,7 @@ var Main = new Vue({
 				this.regGamerTagError = "Enter a Gamer Tag";
 			} else {
 				// Fetch the username: 
-				fetch('http://localhost:3000/users/checkgamertag?tag=' + gtag.value)
+				fetch('/users/checkusername' + gtag.value)
 				.then(function(response) {
 					response.json().then(function(data) {
 						console.log(data);
@@ -69,14 +77,40 @@ var Main = new Vue({
 		},
 
 		regFormSubmit: function() {
-			console.log("Hello");
 			this.regUserWaiting = !this.regUserWaiting;
 			this.verifyUserName();
 			this.verifyGamerTag();
-			if ( this.regNameError == "Nice!" && this.regGamerTagError == "Good to go!") {
-				console.log("Can submit");
-			}
 			this.regUserWaiting = !this.regUserWaiting;
+		}, 
+
+		verifyRegTeamForm: function() {
+			var teamName = this.$refs.teamName;
+			var regTeamLeaderName = this.$refs.teamLeaderName;
+
+			if ( teamName.value == "" || teamName.value == null ) {
+				this.regTeamNameError = "Enter a team name.";
+				teamName.attributes.class.value = "invalid";
+			} else {
+				this.regTeamNameError = "";
+				teamName.attributes.class.value = "valid";
+			}
+
+			if ( teamLeaderName.value == "" || teamLeaderName.value == null ) {
+				this.regTeamLeaderNameError = "Enter team leader name.";
+				teamLeaderName.attributes.class.value = "invalid";
+			} else {
+				this.regTeamLeaderNameError = "";
+				teamLeaderName.attributes.class.value = "valid";
+			}
+
+		}, 
+
+		regTeamFormSubmit: function() {
+			this.regTeamWaiting = !this.regTeamWaiting;
+			console.log("Helloooo");
+			this.verifyRegTeamForm();
+
+			this.regTeamWaiting = !this.regTeamWaiting;
 		}
 	}
 });
@@ -84,13 +118,24 @@ var Main = new Vue({
 
 // Gets all the teams from the server
 var getTeams = function () {
-	fetch("http://localhost:8000/teams/showteams/", {
+	fetch("/teams/showteams/", {
 		mode: 'no-cors'
 	}).then(function(res) {
-		console.log(res);
 		res.json().then(function(data) {
-			
-			Main.teams = data.teams;
+			Main.teams = data;
+		});
+	}).catch(function(err) {
+		console.log(err);
+	});
+}
+
+// Get the list of players
+var getPlayers = function () {
+	fetch("players.json", {
+		mode: 'no-cors'
+	}).then(function(res) {
+		res.json().then(function(data) {
+			Main.players = data.players;
 		});
 	}).catch(function(err) {
 		console.log(err);
