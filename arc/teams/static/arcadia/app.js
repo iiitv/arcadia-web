@@ -25,6 +25,7 @@ var Main = new Vue({
 			}
 			if ( val == 'plrs' && this.gotPlayers == 0 ) {
 				getPlayers();
+				console.log("HEllo", this.players);
 				this.gotPlayers = 1;
 			}
 			this.siteState = val;
@@ -114,9 +115,34 @@ var Main = new Vue({
 
 		regTeamFormSubmit: function() {
 			this.regTeamWaiting = !this.regTeamWaiting;
-			console.log("Helloooo");
 			this.verifyRegTeamForm();
-
+			if ( this.regTeamNameError == this.regTeamLeaderNameError ) {
+				// Both errors are empty, thus form is good to submit
+				fetch('/teams/showteams/', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						"team_name": this.$refs.teamName.value,
+						"leader": this.$refs.teamLeaderName.value,
+						"member": "To be auctioned.",
+						"membertag": "-",
+						"member2": "To be auctioned.",
+						"member2tag": "-",
+						"member3": "To be auctioned.",
+						"member3tag": "-",
+						"member4": "To be auctioned.",
+						"member4tag": "-",
+						"member5": "To be auctioned.",
+						"member5tag": "-",
+					})
+				}).then(function(response) {
+					console.log(response);
+				}).catch(function(err) {
+					console.log(err);
+				});
+			}
 			this.regTeamWaiting = !this.regTeamWaiting;
 		}
 	}
@@ -138,11 +164,12 @@ var getTeams = function () {
 
 // Get the list of players
 var getPlayers = function () {
-	fetch("players.json", {
+	fetch("/teams/showusers/", {
 		mode: 'no-cors'
 	}).then(function(res) {
+		console.log(res);
 		res.json().then(function(data) {
-			Main.players = data.players;
+			Main.players = data;
 		});
 	}).catch(function(err) {
 		console.log(err);
