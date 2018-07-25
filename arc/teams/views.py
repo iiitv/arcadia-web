@@ -41,14 +41,15 @@ class teams(APIView):
 
 def checkusername(request):
     data = json.loads(request.body)
+    print(data)
     data1 = json.dumps(data)
     userr = eval(data1).get('name')
     #return HttpResponse(userr)
 
-    if user_record.objects.filter(name = userr).exists():
-        return HttpResponse("{ 'presence'  : true }")
+    if user_record.objects.filter(tag = userr).exists():
+        return HttpResponse(json.dumps({'presence': True}), content_type='application/json')
     else:
-        return HttpResponse("{ 'presence'  : false }")
+        return HttpResponse(json.dumps({'presence'  : False }), content_type='application/json')
 
 
 

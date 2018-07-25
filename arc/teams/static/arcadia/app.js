@@ -58,10 +58,15 @@ var Main = new Vue({
 				this.regGamerTagError = "Enter a Gamer Tag";
 			} else {
 				// Fetch the username: 
-				fetch('/users/checkusername' + gtag.value)
+				fetch('/users/checkusername/', {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json; charset=utf-8"
+					},
+					body: JSON.stringify({"name": gtag.value})
+				})
 				.then(function(response) {
 					response.json().then(function(data) {
-						console.log(data);
 						if ( data.presence ) {
 							// Username already used.
 							gtag.attributes.class.value = "invalid";
@@ -72,6 +77,8 @@ var Main = new Vue({
 							instance.regGamerTagError = "Good to go!";
 						}
 					});
+				}).catch(function(err) {
+					console.log(err);
 				});
 			}
 		},
