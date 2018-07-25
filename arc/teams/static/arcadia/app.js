@@ -114,9 +114,35 @@ var Main = new Vue({
 
 		regTeamFormSubmit: function() {
 			this.regTeamWaiting = !this.regTeamWaiting;
-			console.log("Helloooo");
 			this.verifyRegTeamForm();
-
+			if ( this.regTeamNameError == this.regTeamLeaderNameError ) {
+				// Both errors are empty, thus form is good to submit
+				fetch('/teams/team_register/', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						"id": 0,
+						"team_name": this.$refs.teamName.value,
+						"leader": this.$refs.teamLeaderName.value,
+						"member": "To be auctioned.",
+						"membertag": "-",
+						"member2": "To be auctioned.",
+						"member2tag": "-",
+						"member3": "To be auctioned.",
+						"member3tag": "-",
+						"member4": "To be auctioned.",
+						"member4tag": "-",
+						"member5": "To be auctioned.",
+						"member5tag": "-",
+					})
+				}).then(function(response) {
+					console.log(response);
+				}).catch(function(err) {
+					console.log(err);
+				});
+			}
 			this.regTeamWaiting = !this.regTeamWaiting;
 		}
 	}

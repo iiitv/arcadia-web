@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 from django.http import JsonResponse
 from .serialisers import team_dataSerialiser, user_recordSerialiser
 from .models import user_record, team_data, team
@@ -32,6 +32,7 @@ class teams(APIView):
 
     def post(self,request):
         serializer = team_dataSerialiser(data=(request.data))
+        print(serializer)
         if serializer.is_valid():
            serializer.save()
            return Response(serializer.data, status=status.HTTP_201_CREATED)
