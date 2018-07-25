@@ -118,13 +118,33 @@ var Main = new Vue({
 		verifyRegTeamForm: function() {
 			var teamName = this.$refs.teamName;
 			var regTeamLeaderName = this.$refs.teamLeaderName;
-
+			var instance = this;
 			if ( teamName.value == "" || teamName.value == null ) {
 				this.regTeamNameError = "Enter a team name.";
 				teamName.attributes.class.value = "invalid";
 			} else {
-				this.regTeamNameError = "";
-				teamName.attributes.class.value = "valid";
+				fetch('/users/checkteamname/', {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json; charset=utf-8"
+					},
+					body: JSON.stringify({"name": teamName.value })
+				})
+				.then(function(response) {
+					response.json().then(function(data) {
+						if ( data.presence ) {
+							// Username already used.
+							teamName.attributes.class.value = "invalid";
+							instance.regTeamNameError = "Team Name Already used";
+						} else {
+							// No problem
+							teamName.attributes.class.value = "invalid";
+							instance.regTeamNameError = "Looks like the winners are here!";
+						}
+					});
+				}).catch(function(err) {
+					console.log(err);
+				});
 			}
 
 			if ( teamLeaderName.value == "" || teamLeaderName.value == null ) {
