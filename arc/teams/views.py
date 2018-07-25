@@ -21,17 +21,6 @@ class user_register(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(request.data, status=status.HTTP_400_BAD_REQUEST)
 
-def checkusername(request):
-    data = json.loads(request.body)
-    data1 = json.dumps(data)
-    userr = eval(data1).get('name')
-    #return HttpResponse(userr)
-
-    if user_record.objects.filter(name = userr).exists():
-        return HttpResponse("{ 'presence'  : true }")
-    else:
-        return HttpResponse("{ 'presence'  : false }")
-
 
 
 
@@ -47,3 +36,19 @@ class teams(APIView):
            serializer.save()
            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(request.data, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+def checkusername(request):
+    data = json.loads(request.body)
+    data1 = json.dumps(data)
+    userr = eval(data1).get('name')
+    #return HttpResponse(userr)
+
+    if user_record.objects.filter(name = userr).exists():
+        return HttpResponse("{ 'presence'  : true }")
+    else:
+        return HttpResponse("{ 'presence'  : false }")
+
+
+
