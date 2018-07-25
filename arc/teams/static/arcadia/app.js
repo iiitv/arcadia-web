@@ -11,7 +11,7 @@ var Main = new Vue({
 		regGamerTagAlreadyUsed: 2,
 		regTeamWaiting: false,
 		gotPlayers: 0,
-		players: [],
+		players: [{"name": "-", "tag": "-"}],
 		regTeamNameError: "",
 		regTeamLeaderNameError: "",
 		regTeamMsg: "",
@@ -219,7 +219,9 @@ var getPlayers = function () {
 	}).then(function(res) {
 		console.log(res);
 		res.json().then(function(data) {
-			Main.players = data;
+			if ( data.length > 0 ) {
+				Main.players = data;
+			}
 		});
 	}).catch(function(err) {
 		console.log(err);
