@@ -57,7 +57,7 @@ def checkusername(request):
     userr = eval(data1).get('name')
     #return HttpResponse(userr)
 
-    if user_record.objects.filter(tag = userr).exists():
+    if user_record.objects.filter(tag = userr).count != 0:
         return HttpResponse(json.dumps({'presence': True}), content_type='application/json')
     else:
         return HttpResponse(json.dumps({'presence'  : False }), content_type='application/json')
@@ -69,7 +69,7 @@ def checkteamname(request):
     teamss = eval(data1).get('name')
     #return HttpResponse(teamss)
 
-    if team_data.objects.filter(team_name = teamss).exists():
+    if team_data.objects.filter(team_name = teamss).count != 0:
         return HttpResponse(json.dumps({'presence': True}), content_type='application/json')
     else:
         return HttpResponse(json.dumps({'presence'  : False }), content_type='application/json')
