@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions
+from rest_framework import status
 from django.http import JsonResponse
 from .serialisers import team_dataSerialiser, user_recordSerialiser
 #user_recordSerialiser
