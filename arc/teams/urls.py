@@ -5,13 +5,8 @@ from .views import user_register
 from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
 
-<<<<<<< HEAD
-    url(r'team_register/$', teams.as_view() , name = 'tregister'),
-    url(r'register/$', user_register.as_view(), name = 'register'),
-=======
     url(r'register/$', user_register.as_view(), name = 'register'),
     # url(r'team_register/$', teams.as_view() , name = 'tregister'),
->>>>>>> 6350a0e295f9b9aa2a0eadbc0c01c21c8abd275c
     url(r'checkusername/$', checkusername, name = 'checkusername'),
     url(r'showteams/$', teams.as_view() , name = 'showteams'),
     url(r'checkteamname/$', checkteamname, name = 'checkteamname'),

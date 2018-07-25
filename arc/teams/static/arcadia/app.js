@@ -27,7 +27,6 @@ var Main = new Vue({
 			}
 			if ( val == 'plrs' && this.gotPlayers == 0 ) {
 				getPlayers();
-				console.log("HEllo", this.players);
 				this.gotPlayers = 1;
 			}
 			this.siteState = val;
@@ -90,6 +89,29 @@ var Main = new Vue({
 			this.regUserWaiting = !this.regUserWaiting;
 			this.verifyUserName();
 			this.verifyGamerTag();
+			var instance = this;
+			if ( this.regNameError == "Nice!" && this.regGamerTagError == "Good to go!" && this.regGamerTagError !== ""  ) {
+				fetch('/teams/register/', {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({"name": this.$refs.userName.value, "tag": this.$refs.regGamerTagRef.value})
+				})
+				.then(function(res) {
+					if ( res.status == 201 ) {
+						instance.regUserMsg = "You are successfuly registered. Contact ... for payment and verification.";
+					} else {
+						instance.regUserMsg = "Some error while contacting server. Please try again later.";
+					}
+				})
+				.catch(function(err) {
+					console.log(err);
+				});
+			} else {
+				instance.regUserMsg = "Fill the details correctly";
+
+			}
 			this.regUserWaiting = !this.regUserWaiting;
 		}, 
 
