@@ -13,7 +13,9 @@ var Main = new Vue({
 		gotPlayers: 0,
 		players: [],
 		regTeamNameError: "",
-		regTeamLeaderNameError: ""
+		regTeamLeaderNameError: "",
+		regTeamMsg: "",
+		regUserMsg: ""
 	}
 	,
 	methods: {
@@ -116,6 +118,7 @@ var Main = new Vue({
 		regTeamFormSubmit: function() {
 			this.regTeamWaiting = !this.regTeamWaiting;
 			this.verifyRegTeamForm();
+			var instance = this;
 			if ( this.regTeamNameError == this.regTeamLeaderNameError ) {
 				// Both errors are empty, thus form is good to submit
 				fetch('/teams/showteams/', {
@@ -139,6 +142,11 @@ var Main = new Vue({
 					})
 				}).then(function(response) {
 					console.log(response);
+					if ( response.status == 201 ) {
+						instance.regTeamMsg = "Your team has been registered. Please contact ... for payment and verification.";
+					} else {
+						instance.regTeamMsg = "There was a problem while connecting server. Try again later.";
+					}
 				}).catch(function(err) {
 					console.log(err);
 				});
