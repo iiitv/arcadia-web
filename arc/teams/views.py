@@ -46,9 +46,9 @@ def checkusername(request):
     #return HttpResponse(userr)
 
     if user_record.objects.filter(name = userr).exists():
-        return HttpResponse("{ 'presence'  : true }")
+        return HttpResponse("{ "presence"  : true }")
     else:
-        return HttpResponse("{ 'presence'  : false }")
+        return HttpResponse("{ "presence"  : false }")
 
 
 
