@@ -135,10 +135,11 @@ var Main = new Vue({
 						if ( data.presence ) {
 							// Username already used.
 							teamName.attributes.class.value = "invalid";
+							console.log("Teamname", teamName.attributes.class.value);
 							instance.regTeamNameError = "Team Name Already used";
 						} else {
 							// No problem
-							teamName.attributes.class.value = "invalid";
+							teamName.attributes.class.value = "valid";
 							instance.regTeamNameError = "Looks like the winners are here!";
 						}
 					});
@@ -161,7 +162,8 @@ var Main = new Vue({
 			this.regTeamWaiting = !this.regTeamWaiting;
 			this.verifyRegTeamForm();
 			var instance = this;
-			if ( this.regTeamNameError == this.regTeamLeaderNameError ) {
+			if ( this.$refs.teamLeaderName.attributes.class.value == "valid" && this.$refs.teamName.attributes.class.value == "valid" ) {
+				console.log("Heloooooooo");
 				// Both errors are empty, thus form is good to submit
 				fetch('/teams/showteams/', {
 					method: 'POST',
