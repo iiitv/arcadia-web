@@ -25,6 +25,7 @@ var Main = new Vue({
 			}
 			if ( val == 'plrs' && this.gotPlayers == 0 ) {
 				getPlayers();
+				console.log("HEllo", this.players);
 				this.gotPlayers = 1;
 			}
 			this.siteState = val;
@@ -164,11 +165,12 @@ var getTeams = function () {
 
 // Get the list of players
 var getPlayers = function () {
-	fetch("players.json", {
+	fetch("/teams/showusers/", {
 		mode: 'no-cors'
 	}).then(function(res) {
+		console.log(res);
 		res.json().then(function(data) {
-			Main.players = data.players;
+			Main.players = data;
 		});
 	}).catch(function(err) {
 		console.log(err);
