@@ -5,7 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
 
     url(r'register/$', user_register.as_view(), name = 'register'),
-    url(r'team_register/$', teams.as_view() , name = 'tregister'),
+    # url(r'team_register/$', teams.as_view() , name = 'tregister'),
     url(r'checkusername/$', checkusername, name = 'checkusername'),
     url(r'showteams/$', teams.as_view(), name = 'showteams'),
     url(r'checkteamname/$', checkteamname, name = 'checkteamname'),

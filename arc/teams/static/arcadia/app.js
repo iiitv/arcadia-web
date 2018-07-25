@@ -118,13 +118,12 @@ var Main = new Vue({
 			this.verifyRegTeamForm();
 			if ( this.regTeamNameError == this.regTeamLeaderNameError ) {
 				// Both errors are empty, thus form is good to submit
-				fetch('/teams/team_register/', {
+				fetch('/teams/showteams/', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({
-						"id": 0,
 						"team_name": this.$refs.teamName.value,
 						"leader": this.$refs.teamLeaderName.value,
 						"member": "To be auctioned.",
