@@ -23,11 +23,14 @@ class user_register(APIView):
 
 def checkusername(request):
     data = json.loads(request.body)
-    userr = data['name']
+    data1 = json.dumps(data)
+    userr = eval(data1).get('name')
+    #return HttpResponse(userr)
+
     if user_record.objects.filter(name = userr).exists():
-        return False
+        return HttpResponse("{ 'presence'  : true }")
     else:
-        return True
+        return HttpResponse("{ 'presence'  : false }")
 
 
 
