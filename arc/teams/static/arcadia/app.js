@@ -40,163 +40,18 @@ var Main = new Vue({
 			}
 		},
 
-		verifyUserName: function() {
-			var uname = this.$refs.userName.value;
-			if ( (uname == "" || uname == null) ) {
-				this.$refs.userName.attributes.class.value = "invalid";
-				this.regNameError = "Enter a Name";
-			} else {
-				this.$refs.userName.attributes.class.value = "valid";
-				this.regNameError = "Nice!"
-			}
-		},
-
-		verifyGamerTag: function() {
-			var gtag = this.$refs.regGamerTagRef;
-			var instance = this;
-			if ( (gtag.value == "" || gtag.value == null) ) {
-				// Check if username is empty
-				gtag.attributes.class.value = "invalid";
-				this.regGamerTagError = "Enter a Gamer Tag";
-			} else {
-				// Fetch the username: 
-				fetch('/users/checkusername/', {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json; charset=utf-8"
-					},
-					body: JSON.stringify({"name": gtag.value})
-				})
-				.then(function(response) {
-					response.json().then(function(data) {
-						if ( data.presence ) {
-							// Username already used.
-							gtag.attributes.class.value = "invalid";
-							instance.regGamerTagError = "Gamer Tag Already used";
-						} else {
-							// No problem
-							gtag.attributes.class.value = "valid";
-							instance.regGamerTagError = "Good to go!";
-						}
-					});
-				}).catch(function(err) {
-					console.log(err);
-				});
-			}
-		},
-
-		regFormSubmit: function() {
+		regUserFormSubmit: function() {
 			this.regUserWaiting = !this.regUserWaiting;
-			this.verifyUserName();
-			this.verifyGamerTag();
-			var instance = this;
-			if ( this.regNameError == "Nice!" && this.regGamerTagError == "Good to go!" && this.regGamerTagError !== ""  ) {
-				fetch('/teams/register/', {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify({"name": this.$refs.userName.value, "tag": this.$refs.regGamerTagRef.value})
-				})
-				.then(function(res) {
-					if ( res.status == 201 ) {
-						instance.regUserMsg = "You are successfuly registered. Contact ... for payment and verification.";
-					} else {
-						instance.regUserMsg = "Some error while contacting server. Please try again later.";
-					}
-				})
-				.catch(function(err) {
-					console.log(err);
-				});
-			} else {
-				instance.regUserMsg = "Fill the details correctly";
-
-			}
+			// Functions concerning the user form are in UserFormFuncs.js
+			VerifyUserForm();			
 			this.regUserWaiting = !this.regUserWaiting;
-		}, 
-
-		verifyRegTeamForm: function() {
-			this.regTeamWaiting = !this.regTeamWaiting;
-
-			var teamName = this.$refs.teamName;
-			var regTeamLeaderName = this.$refs.teamLeaderName;
-			var instance = this;
-			if ( teamName.value == "" || teamName.value == null ) {
-				this.regTeamNameError = "Enter a team name.";
-				teamName.attributes.class.value = "invalid";
-			} else {
-				fetch('/users/checkteamname/', {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json; charset=utf-8"
-					},
-					body: JSON.stringify({"name": teamName.value })
-				})
-				.then(function(response) {
-					response.json().then(function(data) {
-						if ( data.presence ) {
-							// Username already used.
-							teamName.attributes.class.value = "invalid";
-							console.log("Teamname", teamName.attributes.class.value);
-							instance.regTeamNameError = "Team Name Already used";
-						} else {
-							// No problem
-							teamName.attributes.class.value = "valid";
-							instance.regTeamNameError = "Looks like the winners are here!";
-							if ( teamLeaderName.value == "" || teamLeaderName.value == null ) {
-								this.regTeamLeaderNameError = "Enter team leader name.";
-								teamLeaderName.attributes.class.value = "invalid";
-							} else {
-								this.regTeamLeaderNameError = "";
-								teamLeaderName.attributes.class.value = "valid";
-								instance.regTeamFormSubmit();
-							}
-						}
-					});
-				}).catch(function(err) {
-					console.log(err);
-				});
-			}
-
-			this.regTeamWaiting = !this.regTeamWaiting;
-
 		}, 
 
 		regTeamFormSubmit: function() {
-			var instance = this;
-			if ( this.$refs.teamLeaderName.attributes.class.value == "valid" && this.$refs.teamName.attributes.class.value == "valid" ) {
-				console.log("Heloooooooo");
-				// Both errors are empty, thus form is good to submit
-				fetch('/teams/showteams/', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({
-						"team_name": this.$refs.teamName.value,
-						"leader": this.$refs.teamLeaderName.value,
-						"member": "To be auctioned.",
-						"membertag": "-",
-						"member2": "To be auctioned.",
-						"member2tag": "-",
-						"member3": "To be auctioned.",
-						"member3tag": "-",
-						"member4": "To be auctioned.",
-						"member4tag": "-",
-						"member5": "To be auctioned.",
-						"member5tag": "-",
-					})
-				}).then(function(response) {
-					console.log(response);
-					if ( response.status == 201 ) {
-						instance.regTeamMsg = "Your team has been registered. Please contact ... for payment and verification.";
-					} else {
-						instance.regTeamMsg = "There was a problem while connecting server. Try again later.";
-					}
-				}).catch(function(err) {
-					console.log(err);
-				});
-			}
+			// Functions concerning the team form are in TeamFormFuncs.js
+			this.regTeamWaiting = !this.regTeamWaiting;
+			VerifyRegTeamForm();
+			this.regTeamWaiting = !this.regTeamWaiting;
 		}
 	}
 });
