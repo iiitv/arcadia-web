@@ -4,21 +4,12 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from django.http import JsonResponse
 from .serialisers import team_dataSerialiser, user_recordSerialiser
-#user_recordSerialiser
-from .models import user_record, team_data, team
+from .models import user_record, team_data
 import json
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from .forms import user
-
-def randomresponse(request):
-    return HttpResponse('sdfsdfsdfs')
-
-
-
-
-
 
 class teams(APIView):
     def get(self, request):
@@ -52,11 +43,9 @@ class user_register(APIView):
 
 def checkusername(request):
     data = json.loads(request.body)
-    #print(data)
     data1 = json.dumps(data)
     userr = eval(data1).get('name')
-    #return HttpResponse(userr)
-
+    
     if user_record.objects.filter(tag = userr).exists():
         return HttpResponse(json.dumps({'presence': True}), content_type='application/json')
     else:
@@ -67,7 +56,6 @@ def checkteamname(request):
     data = json.loads(request.body)
     data1 = json.dumps(data)
     teamss = eval(data1).get('name')
-    #return HttpResponse(teamss)
 
     if team_data.objects.filter(team_name = teamss).exists():
         return HttpResponse(json.dumps({'presence': True}), content_type='application/json')
