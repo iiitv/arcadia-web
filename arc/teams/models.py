@@ -5,35 +5,8 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from django.contrib.auth.models import User
 
 
-status_choices = [
 
-    ('w', 'winner'),
-    ('p', 'participating'),
-    ('d', 'disqualified')
-
-]
 # Create your models here.
-
-
-
-class CsrfExemptSessionAuthentication(SessionAuthentication):
-
-    def enforce_csrf(self, request):
-        return  # To not perform the csrf check previously happening
-
-
-class GameQuerySet(models.QuerySet):
-    def is_present(self,user):
-        return self.filter(Q(name=user))
-
-
-class team(models.Model):
-    team_name=models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.team_name
-
-
 
 class user_record(models.Model):
     name = models.CharField(max_length=100, default = 'user')
