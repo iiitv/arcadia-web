@@ -116,6 +116,8 @@ var Main = new Vue({
 		}, 
 
 		verifyRegTeamForm: function() {
+			this.regTeamWaiting = !this.regTeamWaiting;
+
 			var teamName = this.$refs.teamName;
 			var regTeamLeaderName = this.$refs.teamLeaderName;
 			var instance = this;
@@ -141,6 +143,14 @@ var Main = new Vue({
 							// No problem
 							teamName.attributes.class.value = "valid";
 							instance.regTeamNameError = "Looks like the winners are here!";
+							if ( teamLeaderName.value == "" || teamLeaderName.value == null ) {
+								this.regTeamLeaderNameError = "Enter team leader name.";
+								teamLeaderName.attributes.class.value = "invalid";
+							} else {
+								this.regTeamLeaderNameError = "";
+								teamLeaderName.attributes.class.value = "valid";
+								instance.regTeamFormSubmit();
+							}
 						}
 					});
 				}).catch(function(err) {
@@ -148,19 +158,11 @@ var Main = new Vue({
 				});
 			}
 
-			if ( teamLeaderName.value == "" || teamLeaderName.value == null ) {
-				this.regTeamLeaderNameError = "Enter team leader name.";
-				teamLeaderName.attributes.class.value = "invalid";
-			} else {
-				this.regTeamLeaderNameError = "";
-				teamLeaderName.attributes.class.value = "valid";
-			}
+			this.regTeamWaiting = !this.regTeamWaiting;
 
 		}, 
 
 		regTeamFormSubmit: function() {
-			this.regTeamWaiting = !this.regTeamWaiting;
-			this.verifyRegTeamForm();
 			var instance = this;
 			if ( this.$refs.teamLeaderName.attributes.class.value == "valid" && this.$refs.teamName.attributes.class.value == "valid" ) {
 				console.log("Heloooooooo");
@@ -195,7 +197,6 @@ var Main = new Vue({
 					console.log(err);
 				});
 			}
-			this.regTeamWaiting = !this.regTeamWaiting;
 		}
 	}
 });
