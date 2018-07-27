@@ -7,9 +7,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/materialize.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/style.css' %}">
+	<!-- Change to Vue JS Production CDN link -->
+	<!-- <script src="{% static 'arcadia/vue.js' %}"></script> -->
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<link rel="shortcut icon" type="image/ico" href="{% static 'assets/arcadialogo_fade_darkbg.ico' %}">
 </head>
 <body>
 	<div id="main-app">
@@ -17,7 +18,7 @@
 		<header>
 			<nav class="nav-extended">
 				<div class="nav-wrapper">
-					<a href="/" class="brand-logo center"><img src="{% static 'assets/arcadia_text.png' %}"></a>
+					<a href="#" class="brand-logo center">Arcadia Logo</a>
 				</div>
 				<div class="nav-content">
 					<div class="row container">
@@ -63,17 +64,17 @@
 												<h4>Register</h4>
 												<hr>
 												<div class="input-field">
-													<input type="text" name="name" ref="userName" placeholder="Your Name" class="input" id="userName">
+													<input type="text" name="name" ref="userName" placeholder="Your Name" class="input" @blur="verifyUserName()" id="userName">
 													<label for="regName">{% verbatim %}{{ regNameError }}{% endverbatim %}</label>
 												</div>
 												<div class="input-field">
-													<input type="text" id="regGamerTag" ref="regGamerTagRef" placeholder="Your Gamer Tag" class="input">
+													<input type="text" id="regGamerTag" ref="regGamerTagRef" @blur="verifyGamerTag()" placeholder="Your Gamer Tag" class="input">
 													<label for="regGamerTag" >{% verbatim %}{{ regGamerTagError }}{% endverbatim %}</label>
 												</div>
 
 											</form>
 											<p><b>{% verbatim %}{{ regUserMsg }}{% endverbatim %}</b></p>
-										<button v-show="!regUserWaiting" @click.prevent="regUserFormSubmit" class="waves-effect waves-light btn green">Submit</button> 
+										<button v-show="!regUserWaiting" @click.prevent="regFormSubmit" class="waves-effect waves-light btn green">Submit</button> 
 										
 										<!-- Waiting Icon -->
 										<div class="preloader-wrapper small active" v-show="regUserWaiting">
@@ -117,7 +118,7 @@
 										</form>
 										<p><b>{% verbatim %}{{ regTeamMsg }}{% endverbatim %}</b></p>
 										<br>
-										<button v-show="!regTeamWaiting" @click.prevent="regTeamFormSubmit" class="waves-effect waves-light btn green">Register</button> 
+										<button v-show="!regTeamWaiting" @click.prevent="verifyRegTeamForm" class="waves-effect waves-light btn green">Register</button> 
 										
 										<!-- Waiting Icon -->
 										<div class="preloader-wrapper small active" v-show="regTeamWaiting">
@@ -266,8 +267,7 @@
 		  </div>
 		</footer>
 	</div>
-	<script type="text/javascript" src="{% static 'arcadia/UserFormFuncs.js' %}"></script>
-	<script type="text/javascript" src="{% static 'arcadia/TeamFormFuncs.js' %}"></script>
+
 	<script type="text/javascript" src="{% static 'arcadia/app.js' %}"></script>
 	<script type="text/javascript" src="{% static 'arcadia/materialize.min.js' %}"></script>
 	<!-- Custom JS Code -->

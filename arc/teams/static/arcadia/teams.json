@@ -1,0 +1,110 @@
+{
+	"teams" : [
+		{
+			"name" : "Synergy",
+			"leader" : "Jay Mistry",
+			"members" : [
+				{
+					"name" : "Jay Mistry",
+					"tag" : "RossoSkull"
+				}, {
+					"name" : "Lorem Ipsum",
+					"tag" : "Olor Sit"
+				}, {
+					"name" : "Amet Addae",
+					"tag" : "RASd dase"
+				}, {
+					"name" : "Afdfdsfa adfdf ",
+					"tag" : "asdfeef s"
+				}, {
+					"name" : "dfa dfews",
+					"tag" : "asfdfe asfde"
+				}
+			]
+		}, {
+			"name" : "Synergy",
+			"leader" : "Jay Mistry",
+			"members" : [
+				{
+					"name" : "Jay Mistry",
+					"tag" : "RossoSkull"
+				}, {
+					"name" : "Jay Mistry 2",
+					"tag" : "RossoSkull 2"
+				}, {
+					"name" : "Jay Mistry 3",
+					"tag" : "RossoSkull 3"
+				}, {
+					"name" : "Jay Mistry 4",
+					"tag" : "RossoSkull 4"
+				}, {
+					"name" : "Jay Mistry 5",
+					"tag" : "RossoSkull 5"
+				}
+			]
+		}, {
+			"name" : "Synergy",
+			"leader" : "Jay Mistry",
+			"members" : [
+				{
+					"name" : "Jay Mistry",
+					"tag" : "RossoSkull"
+				}, {
+					"name" : "Jay Mistry 2",
+					"tag" : "RossoSkull 2"
+				}, {
+					"name" : "Jay Mistry 3",
+					"tag" : "RossoSkull 3"
+				}, {
+					"name" : "Jay Mistry 4",
+					"tag" : "RossoSkull 4"
+				}, {
+					"name" : "Jay Mistry 5",
+					"tag" : "RossoSkull 5"
+				}
+			]
+		}, {
+			"name" : "Synergy",
+			"leader" : "Jay Mistry",
+			"members" : [
+				{
+					"name" : "Jay Mistry",
+					"tag" : "RossoSkull"
+				}, {
+					"name" : "Jay Mistry 2",
+					"tag" : "RossoSkull 2"
+				}, {
+					"name" : "Jay Mistry 3",
+					"tag" : "RossoSkull 3"
+				}, {
+					"name" : "Jay Mistry 4",
+					"tag" : "RossoSkull 4"
+				}, {
+					"name" : "Jay Mistry 5",
+					"tag" : "RossoSkull 5"
+				}
+			]
+		}, {
+			"name" : "Synergy",
+			"leader" : "Jay Mistry",
+			"members" : [
+				{
+					"name" : "Jay Mistry",
+					"tag" : "RossoSkull"
+				}, {
+					"name" : "Jay Mistry 2",
+					"tag" : "RossoSkull 2"
+				}, {
+					"name" : "Jay Mistry 3",
+					"tag" : "RossoSkull 3"
+				}, {
+					"name" : "Jay Mistry 4",
+					"tag" : "RossoSkull 4"
+				}, {
+					"name" : "Jay Mistry 5",
+					"tag" : "RossoSkull 5"
+				}
+			]
+		}
+	]
+}
