@@ -64,17 +64,17 @@
 												<h4>Register</h4>
 												<hr>
 												<div class="input-field">
-													<input type="text" name="name" ref="userName" placeholder="Your Name" class="input" @blur="verifyUserName()" id="userName">
+													<input type="text" name="name" ref="userName" placeholder="Your Name" class="input" id="userName">
 													<label for="regName">{% verbatim %}{{ regNameError }}{% endverbatim %}</label>
 												</div>
 												<div class="input-field">
-													<input type="text" id="regGamerTag" ref="regGamerTagRef" @blur="verifyGamerTag()" placeholder="Your Gamer Tag" class="input">
+													<input type="text" id="regGamerTag" ref="regGamerTagRef" placeholder="Your Gamer Tag" class="input">
 													<label for="regGamerTag" >{% verbatim %}{{ regGamerTagError }}{% endverbatim %}</label>
 												</div>
 
 											</form>
 											<p><b>{% verbatim %}{{ regUserMsg }}{% endverbatim %}</b></p>
-										<button v-show="!regUserWaiting" @click.prevent="regFormSubmit" class="waves-effect waves-light btn green">Submit</button> 
+										<button v-show="!regUserWaiting" @click.prevent="regUserFormSubmit" class="waves-effect waves-light btn green">Submit</button> 
 										
 										<!-- Waiting Icon -->
 										<div class="preloader-wrapper small active" v-show="regUserWaiting">
@@ -267,7 +267,8 @@
 		  </div>
 		</footer>
 	</div>
-
+	<script type="text/javascript" src="{% static 'arcadia/UserFormFuncs.js' %}"></script>
+	<script type="text/javascript" src="{% static 'arcadia/TeamFormFuncs.js' %}"></script>
 	<script type="text/javascript" src="{% static 'arcadia/app.js' %}"></script>
 	<script type="text/javascript" src="{% static 'arcadia/materialize.min.js' %}"></script>
 	<!-- Custom JS Code -->
