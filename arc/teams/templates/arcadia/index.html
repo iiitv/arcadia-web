@@ -7,10 +7,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/materialize.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/style.css' %}">
-	<!-- Change to Vue JS Production CDN link -->
-	<!-- <script src="{% static 'arcadia/vue.js' %}"></script> -->
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<link rel="shortcut icon" type="image/ico" href="{% static 'assets/arcadialogo_fade_darkbg.ico' %}">
 </head>
 <body>
 	<div id="main-app">
@@ -18,7 +17,7 @@
 		<header>
 			<nav class="nav-extended">
 				<div class="nav-wrapper">
-					<a href="#" class="brand-logo center">Arcadia Logo</a>
+					<a href="/" class="brand-logo center"><img src="{% static 'assets/arcadia_text.png' %}"></a>
 				</div>
 				<div class="nav-content">
 					<div class="row container">
@@ -33,7 +32,6 @@
 					</div>
 				</div>
 			</nav>	
-
 		</header>
 
 
@@ -146,10 +144,26 @@
 				<div class="container">
 					<div class="card red darken-4">
 						<div class="card-content">
-							<h2 class='head-h2 white-text'>Registered Teams</h2>
+							<h2 class='head-h2 white-text'>
+								Registered Teams
+								<button class="btn green waves-light waves-effect" @click="getTeams()">Refresh</button>
+							</h2>
 						</div>
 					</div>
-					<div class="row" >
+					<div class="center">
+						<div class="preloader-wrapper lg active" v-show="teamListWaiting">
+						    <div class="spinner-layer spinner-red-only">
+						      <div class="circle-clipper left">
+						        <div class="circle"></div>
+						      </div><div class="gap-patch">
+						        <div class="circle"></div>
+						      </div><div class="circle-clipper right">
+						        <div class="circle"></div>
+						      </div>
+						    </div>
+						  </div>
+					</div>
+					<div class="row" v-show="!teamListWaiting">
 						<div class="col s12 m6" v-for="team in teams">
 					        <div class="card red darken-4">
 					         <div class="card-content white-text">
@@ -240,8 +254,7 @@
 
 
 
-		<!-- Footer of the page -->
-		
+		<!-- Footer of the page -->		
 		<footer class="page-footer red darken-4">
 		  <div class="container">
 			<div class="row">
