@@ -32,7 +32,6 @@
 					</div>
 				</div>
 			</nav>	
-
 		</header>
 
 
@@ -145,10 +144,26 @@
 				<div class="container">
 					<div class="card red darken-4">
 						<div class="card-content">
-							<h2 class='head-h2 white-text'>Registered Teams</h2>
+							<h2 class='head-h2 white-text'>
+								Registered Teams
+								<button class="btn green waves-light waves-effect" @click="getTeams()">Refresh</button>
+							</h2>
 						</div>
 					</div>
-					<div class="row" >
+					<div class="center">
+						<div class="preloader-wrapper lg active" v-show="teamListWaiting">
+						    <div class="spinner-layer spinner-red-only">
+						      <div class="circle-clipper left">
+						        <div class="circle"></div>
+						      </div><div class="gap-patch">
+						        <div class="circle"></div>
+						      </div><div class="circle-clipper right">
+						        <div class="circle"></div>
+						      </div>
+						    </div>
+						  </div>
+					</div>
+					<div class="row" v-show="!teamListWaiting">
 						<div class="col s12 m6" v-for="team in teams">
 					        <div class="card red darken-4">
 					         <div class="card-content white-text">
@@ -239,8 +254,7 @@
 
 
 
-		<!-- Footer of the page -->
-		
+		<!-- Footer of the page -->		
 		<footer class="page-footer red darken-4">
 		  <div class="container">
 			<div class="row">

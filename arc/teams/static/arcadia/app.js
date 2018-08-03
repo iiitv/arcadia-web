@@ -15,7 +15,9 @@ var Main = new Vue({
 		regTeamNameError: "",
 		regTeamLeaderNameError: "",
 		regTeamMsg: "",
-		regUserMsg: ""
+		regUserMsg: "",
+		teamListWaiting: false,
+		playersListWaiting: false
 	}
 	,
 	methods: {
@@ -59,6 +61,7 @@ var Main = new Vue({
 
 // Gets all the teams from the server
 var getTeams = function () {
+	Main.teamListWaiting = true;
 	fetch("/teams/showteams/", {
 		mode: 'no-cors'
 	}).then(function(res) {
@@ -68,6 +71,7 @@ var getTeams = function () {
 	}).catch(function(err) {
 		console.log(err);
 	});
+	Main.teamListWaiting = false;
 }
 
 // Get the list of players
