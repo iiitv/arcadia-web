@@ -1,6 +1,6 @@
 <p align="center"><a href="http://neeraj00.pythonanywhere.com/"><img src="https://raw.githubusercontent.com/iiitv/arcadia-web/master/arc/teams/static/assets/arcadialogo_fade_darkbg.ico"></img></a></p>
 
-# The Official Website Of Arcadia ( Gaming Club, IIITV )
+# Official Website Of CS-Go League By Arcadia ( Gaming Club, IIITV )
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 ---
 ## Running Locally
